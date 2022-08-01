@@ -39,7 +39,7 @@ def clienteAES(host=HOST, port=PORT):
             cipher = AES.new(key, AES.MODE_EAX, nonce)
             #decripta a seçao de dados
             decrypted_data = cipher.decrypt_and_verify(ciphertext, tag)
-            print(f'Server sent: {decrypted_data} | {len(ciphertext)} bytes')  
+            # print(f'Server sent: {decrypted_data} | {len(ciphertext)} bytes')  
         tempo_final = time.time() - tempo_inicial
         print(f'All data received. Received {data_received} bytes ')
         s.close()
