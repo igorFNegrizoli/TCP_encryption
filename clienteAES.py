@@ -6,7 +6,7 @@ from sqlalchemy import true
 
 HOST = "127.0.0.1"  # Standard loopback interface address (localhost)
 PORT = 65432  # Port to listen on (non-privileged ports are > 1023)
-PACKET_SIZE = 1000
+PACKET_SIZE = 1024
 KEY_SIZE = 16
 
 def clienteAES(host=HOST, port=PORT):
@@ -41,7 +41,8 @@ def clienteAES(host=HOST, port=PORT):
             decrypted_data = cipher.decrypt_and_verify(ciphertext, tag)
             # print(f'Server sent: {decrypted_data} | {len(ciphertext)} bytes')  
         tempo_final = time.time() - tempo_inicial
-        print(f'All data received. Received {data_received} bytes ')
+        print(f'All data received. Received {data_received} bytes in {blocos_recebidos} blocks ')
+        print(f'Fime taken: {tempo_final}')
         s.close()
         return tempo_final, data_received, blocos_recebidos
 

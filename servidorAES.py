@@ -8,12 +8,12 @@ HOST = "127.0.0.1"  # The server's hostname or IP address
 PORT = 65432  # The port used by the server
 FILE_LEN_BYTES = 104857600
 # FILE_LEN_BYTES = 10000
-PACKET_SIZE = 1000
+PACKET_SIZE = 1024
 CRYPTO_KEY = b'Sixteen byte key'#128 bits key
-#tamanho da nonce + tamanho da tad
+#tamanho da nonce + tamanho da tag
 HEADER_LEN = 32
 
-def servidorTCP(host=HOST, port=PORT):
+def servidorAES(host=HOST, port=PORT):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         # determina as opçoes do socket e conecta
         s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, True)
@@ -45,8 +45,8 @@ def servidorTCP(host=HOST, port=PORT):
             blocos_gerados += 1
         s.shutdown(SHUT_RDWR)
         s.close()
-    print(f"All {data_sent} bytes of data sent. Blocos gerados: {blocos_gerados}")
+    # print(f"All {data_sent} bytes of data sent. Blocos gerados: {blocos_gerados}")
     return data_sent, blocos_gerados
 
 if __name__ == "__main__":
-    servidorTCP(HOST, PORT)
+    servidorAES(HOST, PORT)
