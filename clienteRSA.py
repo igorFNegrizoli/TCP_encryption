@@ -6,8 +6,6 @@ from Crypto.Cipher import PKCS1_OAEP
 
 HOST = "127.0.0.1"  # The server's hostname or IP address
 PORT = 65432  # The port used by the server
-# FILE_LEN_BYTES = 104857600
-FILE_LEN_BYTES = 10000
 PACKET_SIZE = 1024
 #tamanho da nonce + tamanho da tag
 
@@ -29,7 +27,7 @@ def clienteRSA(host=HOST, port=PORT):
         #print(f'Client sent key: {client_public_key}')
         conn.send(client_public_key)
         client_cipher = PKCS1_OAEP.new(client_rsa_key)
-
+        print('Receiving data')
         #lê os dados enquento eles sao enviados
         while True:
             packet = conn.recv(PACKET_SIZE)
@@ -50,12 +48,12 @@ def clienteRSA(host=HOST, port=PORT):
                 # print(f'Ciphertext recebido: {ciphertext} with len: {len(ciphertext)}')
                 plaintext = client_cipher.decrypt(ciphertext)
                 data_received += len(plaintext)
-                print(f'Server sent: {plaintext} | {len(plaintext)} bytes')
+                # print(f'Server sent: {plaintext} | {len(plaintext)} bytes')
 
         s.close()
         tempo_final = time.time() - tempo_inicial
         print(f'All data received. Received {data_received} bytes in {blocos_recebidos} blocks ')
-        print(f'Fime taken: {tempo_final}')
+        print(f'Time taken: {tempo_final}')
         return tempo_final, data_received, blocos_recebidos
 
 if __name__ == "__main__":

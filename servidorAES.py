@@ -24,7 +24,7 @@ def servidorAES(host=HOST, port=PORT):
 
         #envia a chave
         s.send(CRYPTO_KEY)
-
+        print('Sending data')
         #envia dados enquanto o contador de dados for menor que 100MB
         while(data_sent < FILE_LEN_BYTES):
             cipher = AES.new(CRYPTO_KEY, AES.MODE_EAX)

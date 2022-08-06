@@ -19,11 +19,11 @@ def clienteAES(host=HOST, port=PORT):
         print(f"Connected by {addr}")
 
         #le a chave
-        print('Waiting for key')
+        #print('Waiting for key')
         key = conn.recv(KEY_SIZE)
         #começa a contar o tempo
         tempo_inicial = time.time()
-
+        print('Receiving data')
         #lê os dados enquento eles sao enviados
         while True:
             data = conn.recv(PACKET_SIZE)
@@ -42,7 +42,7 @@ def clienteAES(host=HOST, port=PORT):
             # print(f'Server sent: {decrypted_data} | {len(ciphertext)} bytes')  
         tempo_final = time.time() - tempo_inicial
         print(f'All data received. Received {data_received} bytes in {blocos_recebidos} blocks ')
-        print(f'Fime taken: {tempo_final}')
+        print(f'Time taken: {tempo_final}')
         s.close()
         return tempo_final, data_received, blocos_recebidos
 

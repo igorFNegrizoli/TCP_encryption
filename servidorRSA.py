@@ -27,6 +27,7 @@ def servidorRSA(host=HOST, port=PORT):
         # print(f'Server received public key: {client_public_key} with len: {len(client_public_key)}')
         server_cipher = PKCS1_OAEP.new(RSA.import_key(client_public_key))
 
+        print('Sending data')
         #envia dados enquanto o contador de dados for menor que 100MB
         data_buffer = b''
         end_flag = False
@@ -56,6 +57,7 @@ def servidorRSA(host=HOST, port=PORT):
 
         s.shutdown(SHUT_RDWR)
         s.close()
+        return data_sent, blocos_gerados
 
 if __name__ == "__main__":
     servidorRSA(HOST, PORT)
